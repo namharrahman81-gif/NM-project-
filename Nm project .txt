@@ -1,0 +1,50 @@
+// Multi-page show/hide logic
+function showPage(pageId){
+  document.querySelectorAll('.section-page').forEach(sec => sec.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  if (pageId==="skills") animateSkills();
+  window.scrollTo({top:0,behavior:'auto'});
+}https://d.docs.live.net/1a109ed999df23e1/PPT%20Rahman-1.pptx
+
+// Typing effect for roles
+const roles = ["Web Developer", "UI/UX Designer", "Frontend Engineer", "Creative Coder"];
+let charIndex = 0, roleIndex = 0;
+const typingElement = document.getElementById("typing");
+let isDeleting = false;
+const typingSpeed = 150;
+
+function type() {
+  let currentRole = roles[roleIndex];
+  if (!isDeleting) {
+    typingElement.textContent = currentRole.substring(0, charIndex + 1);
+    charIndex++;
+    if (charIndex === currentRole.length) {
+      isDeleting = true;
+      setTimeout(type, 1400);
+      return;
+    }
+  } else {
+    typingElement.textContent = currentRole.substring(0, charIndex - 1);
+    charIndex--;
+    if (charIndex === 0) {
+      isDeleting = false;
+      roleIndex = (roleIndex + 1) % roles.length;
+    }
+  }
+  setTimeout(type, isDeleting ? typingSpeed / 2 : typingSpeed);
+}
+type();
+
+// Skill bar animation
+function animateSkills() {
+  document.querySelectorAll("#skills .progress-bar").forEach(bar=>{
+    bar.style.width=bar.textContent.trim();
+  });
+}
+
+document.addEventListener("DOMContentLoaded",function(){
+  showPage("home");
+  document.querySelectorAll("#skills .progress-bar").forEach(bar=>{
+    bar.style.width="0";
+  });
+});https://d.docs.live.net/1a109ed999df23e1/PPT%20Rahman-1.pptx
